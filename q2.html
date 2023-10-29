@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+<div id="chart"></div>
+
+<script>
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "data": {
+      "url": "transactions-smaller.csv"
+    },
+    "title": "Group 3",
+    "mark": "line",
+    "encoding": {
+      "x": {"field": "instance_date", "type": "temporal", "timeUnit": "year"},
+      "y": {
+        "field": "rooms_en",
+        "type": "nominal",
+        "aggregate": "count",
+        "scale": {
+          "domain": [0, 500],
+        },
+      },
+      "color": {
+        "field": "rooms_en",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "", "1 B/R", "2 B/R", "3 B/R", "4 B/R", "5 B/R",
+            "6 B/R", "7 B/R", "Gym", "Office", "Penthouse",
+            "Shop", "Single room", "Store", "Studio"
+          ],
+          "range": [
+            "lightblue", "orange", "red", "cyan", "green", "yellow",
+            "purple", "lightpink", "brown", "grey", "darkblue",
+            "darkorange", "red", "lightblue", "lightgreen"
+          ]
+        }
+      }
+    }
+  };
+
+  vegaEmbed("#chart", spec).catch(console.error);
+</script>
+</body>
+</html>

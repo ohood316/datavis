@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+<div id="chart"></div>
+
+<script>
+    const spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+        "data": {
+            "url": "transactions-smaller.csv",
+            "format": {
+                "type": "csv"
+            }
+        },
+        "title": "Group 3",
+        "layer": [
+            {
+                "mark": "arc",
+                "encoding": {
+                    "theta": {"field": "property_type_en", "type": "nominal"},
+                    "color": {
+                        "field": "property_type_en",
+                        "type": "nominal",
+                        "scale": {
+                            "domain": ["Building", "Land", "Unit", "Villa"],
+                            "range": ["blue", "orange", "red", "lightblue"]
+                        },
+                    },
+                    "radius": {"aggregate": "count", "type": "quantitative", "scale": {"type": "sqrt"}, "title": "Count"},
+                    "text": {"field": "property_type_en", "type": "nominal", "fontSize": 14, "baseline": "middle", "align": "center"}
+                }
+            },
+            {
+                "mark": {"type": "rule", "orient": "horizontal", "stroke": "gray"},
+                "encoding": {
+                    "x": {"value": 0},
+                    "x2": {"field": "theta", "type": "quantitative"}
+                }
+            },
+            {
+                "mark": "line",
+                "encoding": {
+                    "theta": {"field": "property_type_en", "type": "nominal"},
+                    "color": {"field": "property_type_en", "type": "nominal", "scale": {"scheme": "set2"}},
+                    "radius": {"value": 1},
+                    "text": {"field": "property_type_en", "type": "nominal", "fontSize": 14, "baseline": "middle", "align": "center"}
+                }
+            }
+        ]
+    };
+
+    vegaEmbed("#chart", spec).catch(console.error);
+</script>
+</body>
+</html>

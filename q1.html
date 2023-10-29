@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+<div id="chart"></div>
+
+<script>
+    const spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+        "data": {
+            "url": "transactions-smaller.csv"
+        },
+        "title": "Group 3",
+        "mark": "bar",
+        "encoding": {
+            "x": {"field": "property_usage_en", "type": "ordinal"},
+            "y": {"aggregate": "count", "type": "quantitative"},
+            "color": {
+                "field": "property_usage_en",
+                "type": "nominal",
+                "scale": {
+                    "domain": ["Agriculture", "Commercial", "Hospitality ", "Industrial", "Multi-Use", "Other", "Residential", "Storage"],
+                    "range": ["blue", "orange", "red", "lightblue", "green", "yellow", "purple", "pink"]
+                }
+            }
+        }
+    };
+
+    vegaEmbed("#chart", spec).catch(console.error);
+</script>
+</body>
+</html>
